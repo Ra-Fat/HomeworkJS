@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise2</title>
+    <title>Document</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <nav class="subContainer">
+        <div class="operationBlock">
             <div class="inputBlock">
-                <span>Task:</span><br>
-                <input class="inputText" type="text">
+                <span>Task: </span>
+                <input type="text" class="inputTask">
             </div>
-            <div class="seleteBlock">
-                <span>Tag:</span><br>
-                <select class="selectOption" name="Select" id="">
+            <div class="selectBlock">
+                <span>Tag: </span>
+                <select name="Priority" class="selectOption">
                     <option value="Important">Important</option>
                     <option value="UnImportant">UnImportant</option>
                 </select>
             </div>
-            <button class="btn">Add task</button>
-            <button class="showImportant">Show only the important tasks</button>
-            <button class="showNotImportant">Show the tasks that are not important</button>
-            <button class="ShowAllTasks">Show all the tasks</button>
+            <button class="add">Add task</button>
+            <button class="showIm">Show important tasks</button>
+            <button class="showUn">Show not important tasks</button>
+            <button class="showAll">Show all tasks</button>
 
-        </nav>
+        </div>
+        <div class="resultBlock">
+
+        </div>
     </div>
     <script src="js.js"></script>
 </body>

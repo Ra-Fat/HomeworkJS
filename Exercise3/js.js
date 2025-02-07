@@ -1,62 +1,52 @@
-const temp = document.querySelector(".subContainer");
-const addItem = document.querySelector(".btn");
-const showImportant = document.querySelector(".showImportant");
-const showUnImportant = document.querySelector(".showNotImportant");
-const showAllTasks = document.querySelector(".ShowAllTasks");
+// Task Manager with Filter Functionality
+const btn = document.querySelector(".add");
+const imp = document.querySelector(".showIm");
+const Unimp = document.querySelector(".showUn");
+const showAll = document.querySelector(".showAll");
+let stock = [];
 
-let tasks = [];
+btn.addEventListener("click", function () {
+    const inputText = document.querySelector(".inputTask").value;
+    const selectBox = document.querySelector(".selectOption").value;
 
-addItem.addEventListener("click", function displayTasks() {
-    const inputBlock = document.querySelector(".inputText").value;
-    const selectBlock = document.querySelector(".selectOption").value;
-
-    if (inputBlock.trim() !== "") {
-        tasks.push({ description: inputBlock, priority: selectBlock });
-        document.querySelector(".inputText").value = "";
+    if (inputText === "") {
+        alert("You must input something");
+        return;
     }
+
+    stock.push({ description: inputText, priority: selectBox });
 });
 
-showImportant.addEventListener("click", function () {
-    const newContainer = document.createElement("div");
-    for (let task of tasks) {
-        if (task.priority === "Important") {
-            const taskElement = document.createElement("p");
-            taskElement.textContent = task.description;
-            taskElement.classList.add("high");
-            newContainer.appendChild(taskElement);
-        }
-    }
-    if (newContainer.children.length > 0) {
-        temp.appendChild(newContainer);
-    }
+imp.addEventListener("click", function () {
+    displayFilteredTasks("Important");
 });
 
-showUnImportant.addEventListener("click", function () {
-    const newContainer = document.createElement("div");
-    for (let task of tasks) {
-        if (task.priority !== "Important") {
-            const taskElement = document.createElement("p");
-            taskElement.textContent = task.description;
-            taskElement.classList.add("low");
-            newContainer.appendChild(taskElement);
-        }
-    }
-    if (newContainer.children.length > 0) {
-        temp.appendChild(newContainer);
-    }
+Unimp.addEventListener("click", function () {
+    displayFilteredTasks("Unimportant");
 });
 
-showAllTasks.addEventListener("click", function () {
-    const newContainer = document.createElement("div");
-    for (let task of tasks) {
-        if (task.priority === "Important") {
-            const taskElement = document.createElement("p");
-            taskElement.textContent = task.description;
-            taskElement.classList.add("high");
-            newContainer.appendChild(taskElement);
-        }
-    }
-    if (newContainer.children.length > 0) {
-        temp.appendChild(newContainer);
-    }
+showAll.addEventListener("click", function () {
+    displayFilteredTasks("All");
 });
+
+
+function displayFilteredTasks(priority) {
+    const container = document.querySelector(".resultBlock");
+    container.innerHTML = "";
+
+    let filteredTasks;
+    if (priority === "All") {
+        filteredTasks = stock;
+    } else if (priority === "Important") {
+        filteredTasks = stock.filter(task => task.priority === "Important");
+    } else {
+        filteredTasks = stock.filter(task => task.priority !== "Important");
+    }
+
+    filteredTasks.forEach(task => {
+        const item = document.createElement("div");
+        item.textContent = task.description;
+        item.classList.add(task.priority === "Important" ? "high" : "low");
+        container.appendChild(item);
+    });
+}
